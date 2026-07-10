@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OJT Portfolio | Gelai Baclea-an</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            
+            /* --- SPIDER-MAN RED TECH GRID BACKGROUND --- */
+            background-color: #6a040f; 
+            background-image: 
+                /* 1. Vignette shadow sa gilid para sa cinematic at seryosong dilim */
+                radial-gradient(circle at 50% 50%, transparent 10%, rgba(0, 0, 0, 0.9) 95%),
+                
+                /* 2. Malilinis na itim na tech grid lines */
+                linear-gradient(rgba(0, 0, 0, 0.3) 1.5px, transparent 1.5px),
+                linear-gradient(90deg, rgba(0, 0, 0, 0.3) 1.5px, transparent 1.5px);
+            
+            background-size: 100% 100%, 45px 45px, 45px 45px; 
+            background-attachment: fixed;
+        }
+
+        /* MAIN LANDING BOX */
+        .landing-container {
+            background: rgba(20, 20, 25, 0.65); 
+            backdrop-filter: blur(25px); 
+            -webkit-backdrop-filter: blur(25px);
+            width: 100%;
+            max-width: 1200px; 
+            min-height: 650px; 
+            border-radius: 20px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6), 
+                        0 0 50px rgba(186, 12, 47, 0.25); 
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* --- KALIWANG BAHAGI --- */
+        .left-content {
+            flex: 1.1;
+            padding: 80px 70px; 
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            z-index: 2;
+        }
+        .year-tag {
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            color: #ba0c2f; 
+            margin-bottom: 15px;
+        }
+        h1 {
+            font-size: 3.5rem; 
+            font-family: 'Segoe UI', Arial, sans-serif;
+            font-weight: 900;
+            color: #ffffff;
+            line-height: 1.1;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+            text-shadow: 0 4px 10px rgba(0,0,0,0.5);
+        }
+        .bio-text {
+            font-size: 1rem;
+            color: #ccc;
+            line-height: 1.6;
+            max-width: 400px;
+            margin-bottom: 35px;
+        }
+
+        /* Button Group Container */
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        /* Action Button Base Styles */
+        .action-btn {
+            color: white;
+            border: none;
+            padding: 16px 30px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            border-radius: 4px; 
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            width: fit-content;
+        }
+
+        .btn-red {
+            background-color: #ba0c2f;
+            box-shadow: 0 8px 20px rgba(186, 12, 47, 0.4);
+        }
+        .btn-red:hover {
+            background-color: #e51b24; 
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(229, 27, 36, 0.5);
+        }
+
+        .btn-dark {
+            background-color: rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+        .btn-dark:hover {
+            background-color: rgba(186, 12, 47, 0.2);
+            border-color: #ba0c2f;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(186, 12, 47, 0.3);
+        }
+
+        /* --- KANANG BAHAGI: TWO CARDS IN SLICE DISPLAY --- */
+        .right-content {
+            flex: 1.3;
+            position: relative;
+            background: linear-gradient(135deg, rgba(186, 12, 47, 0.75) 0%, rgba(20, 20, 25, 0.9) 100%);
+            clip-path: polygon(15% 0, 100% 0, 100% 100%, 0% 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 60px 60px 60px 18%; 
+        }
+
+        .dashboard-card {
+            background: rgba(0, 0, 0, 0.45);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 22px;
+            border-radius: 12px;
+            width: 100%;
+            max-width: 460px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+            margin-bottom: 20px;
+            color: #eee;
+        }
+        .dashboard-card:last-child {
+            margin-bottom: 0;
+        }
+        .dashboard-card h4 {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #e51b24; 
+            margin-bottom: 12px;
+            font-weight: 700;
+            border-left: 3px solid #ba0c2f;
+            padding-left: 8px;
+        }
+        .dashboard-card p {
+            font-size: 0.95rem;
+            line-height: 1.5;
+            color: #ccc;
+        }
+        .dashboard-card strong {
+            color: #fff;
+        }
+
+        /* --- SLIDING PANELS STYLE --- */
+        .side-panel {
+            position: absolute;
+            top: 0;
+            width: 55%; 
+            height: 100%;
+            background: rgba(15, 15, 20, 0.98); 
+            box-shadow: 0 0 40px rgba(0,0,0,0.7);
+            z-index: 5;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            padding: 40px 30px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        #docsPanel {
+            right: -100%;
+            border-left: 2px solid #ba0c2f;
+        }
+        #docsPanel.open { right: 0; }
+
+        #companyPanel {
+            left: -100%;
+            border-right: 2px solid #ba0c2f;
+        }
+        #companyPanel.open { left: 0; }
+
+        .panel-title {
+            font-size: 2rem; 
+            color: #fff;
+            margin-bottom: 25px;
+            border-bottom: 2px solid #ba0c2f;
+            padding-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .doc-list, .company-content {
+            list-style: none;
+            overflow-y: auto; 
+            max-height: 80%;
+            padding-right: 8px;
+        }
+        
+        .doc-list::-webkit-scrollbar, .company-content::-webkit-scrollbar {
+            width: 5px;
+        }
+        .doc-list::-webkit-scrollbar-thumb, .company-content::-webkit-scrollbar-thumb {
+            background-color: #ba0c2f;
+            border-radius: 10px;
+        }
+        .doc-list::-webkit-scrollbar-track, .company-content::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.02);
+        }
+        
+        .doc-item {
+            margin-bottom: 12px;
+        }
+        
+        .doc-link {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 18px 24px; 
+            background-color: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+            color: #ccc;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.05rem; 
+            transition: all 0.2s ease;
+        }
+        .doc-link:hover {
+            background-color: rgba(186, 12, 47, 0.1);
+            border-color: #ba0c2f;
+            color: #fff;
+            transform: translateX(5px);
+        }
+        
+        .close-panel-btn {
+            margin-top: 15px;
+            background-color: #ba0c2f;
+            color: white;
+            border: none;
+            padding: 12px;
+            cursor: pointer;
+            font-weight: bold;
+            border-radius: 4px;
+            letter-spacing: 1px;
+            transition: background 0.2s;
+        }
+        .close-panel-btn:hover { background-color: #e51b24; }
+
+        /* COMPANY PROFILE STYLE inside Panel */
+        .company-header {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        .company-title-block h5 {
+            font-size: 0.8rem;
+            color: #ba0c2f;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 3px;
+        }
+        .company-title-block h3 {
+            font-size: 1.3rem;
+            color: #fff;
+            font-weight: 800;
+        }
+        .company-card-body {
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 22px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            line-height: 1.6;
+            color: #ccc;
+            font-size: 0.98rem;
+        }
+        .company-card-body h4 {
+            color: #fff;
+            margin-bottom: 10px;
+            font-size: 1.15rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-left: 3px solid #ba0c2f;
+            padding-left: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="landing-container">
+        
+        <!-- KALIWA -->
+        <div class="left-content">
+            <p class="year-tag">2026</p>
+            <h1>GELAI C.<br>BACLEA-AN</h1>
+            <p class="bio-text">
+                An official compilation of documents and reports for the OJT 1 Practicum.
+            </p>
+            
+            <div class="btn-group">
+                <button class="action-btn btn-red" onclick="openDocsPanel()">
+                    <span>▶ VIEW DOCUMENTS</span>
+                </button>
+                <button class="action-btn btn-dark" onclick="openCompanyPanel()">
+                    <span>🏛️ COMPANY PROFILE</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- KANAN: PINAGSAMA NA ANG ABOUT ME AT PRACTICUM DISPLAY -->
+        <div class="right-content">
+            
+            <!-- CARD 1: ABOUT ME -->
+            <div class="dashboard-card">
+                <h4>About Me</h4>
+                <p style="margin-bottom: 6px;"><strong>Course:</strong> Bachelor of Science in Computer Engineering</p>
+                <p style="margin-bottom: 6px;"><strong>Specialization Focus:</strong> Computer Networking & Hardware</p>
+                <p><strong>Institution:</strong> Polytechnic University of the Philippines</p>
+            </div>
+
+            <!-- CARD 2: PRACTICUM INFO -->
+            <div class="dashboard-card">
+                <h4>Practicum Info</h4>
+                <div style="display: flex; flex-direction: row; align-items: center; gap: 15px; margin-bottom: 15px;">
+                    <div style="width: 65px; height: 65px; background: #fff; padding: 5px; border-radius: 6px; flex-shrink: 0;">
+                        <img src="requirements/ntc-logo.png" alt="NTC Logo" style="width: 100%; height: 100%; object-fit: contain;">
+                    </div>
+                    <div>
+                        <p style="font-size: 0.8rem; color: #ba0c2f; text-transform: uppercase; font-weight: bold; letter-spacing: 0.5px;">Host Agency</p>
+                        <p style="font-weight: 700; color: #fff; font-size: 1rem; line-height: 1.2;">National Telecommunications Commission</p>
+                    </div>
+                </div>
+                <p style="margin-bottom: 6px;"> <strong>Course:</strong> OJT 1</p>
+                <!-- ISINAMAT NA NATIN ANG DEPARTAMENTO MO DITO: -->
+                <p style="margin-bottom: 6px;"> <strong>Department:</strong> Broadcast Services Division (BSD)</p>
+                <p> <strong>Required Hours:</strong> 300 Hours</p>
+            </div>
+
+        </div>
+
+        <!-- SLIDING PANEL 1: REQUIREMENTS (Kanan) -->
+        <div id="docsPanel" class="side-panel">
+            <h3 class="panel-title">OJT Requirements</h3>
+            <ul id="docList" class="doc-list">
+                <li class="doc-item">
+                    <a href="requirements/MOA.pdf" target="_blank" class="doc-link">
+                        <span>📝 Memorandum of Agreement (MOA)</span>
+                        <span>➔</span>
+                    </a>
+                </li>
+                <li class="doc-item">
+                    <a href="requirements/Letter of Intent.pdf" target="_blank" class="doc-link">
+                        <span>📄 Letter of Intent (LOI)</span>
+                        <span>➔</span>
+                    </a>
+                </li>
+                <li class="doc-item">
+                    <a href="requirements/Letter of Endorsement.pdf" target="_blank" class="doc-link">
+                        <span>✉️ Letter of Endorsement (LOE)</span>
+                        <span>➔</span>
+                    </a>
+                </li>
+                <li class="doc-item">
+                    <a href="requirements/Student Waiver.pdf" target="_blank" class="doc-link">
+                        <span>🛡️ Student Waiver</span>
+                        <span>➔</span>
+                    </a>
+                </li>
+                <li class="doc-item">
+                    <a href="requirements/Internship Agreement.pdf" target="_blank" class="doc-link">
+                        <span>🤝 Internship Agreement</span>
+                        <span>➔</span>
+                    </a>
+                </li>
+                <li class="doc-item">
+                    <a href="requirements/Consent Form.pdf" target="_blank" class="doc-link">
+                        <span>✍️ Consent Form</span>
+                        <span>➔</span>
+                    </a>
+                </li>
+                <li class="doc-item">
+                    <a href="requirements/Baclea-an-Gelai-CV.pdf" target="_blank" class="doc-link">
+                        <span>📁 Curriculum Vitae (CV)</span>
+                        <span>➔</span>
+                    </a>
+                </li>
+                <li class="doc-item">
+                    <a href="requirements/Insurance.pdf" target="_blank" class="doc-link">
+                        <span>🏢 Insurance Document</span>
+                        <span>➔</span>
+                    </a>
+                </li>
+                <li class="doc-item">
+                    <a href="requirements/Medical Certificate.pdf" target="_blank" class="doc-link">
+                        <span>🩺 Medical Certificate</span>
+                        <span>➔</span>
+                    </a>
+                </li>
+                <li class="doc-item">
+                    <a href="https://drive.google.com/drive/folders/1PQ4HgN_xOsFJZdxR6Cv8MosU9nk9iN3C?usp=drive_link" target="_blank" class="doc-link">
+                        <span>📊 Monthly Reports</span>
+                        <span>➔</span>
+                    </a>
+                </li>
+                <li class="doc-item">
+                    <a href="https://drive.google.com/drive/folders/1l7UAcUDLtK1tW4Ta2fpuK0f4xrfCuxQ7?usp=drive_link" target="_blank" class="doc-link">
+                        <span>📸 Weekly Photo Documentation</span>
+                        <span>➔</span>
+                    </a>
+                </li>
+                <li class="doc-item">
+                    <a href="requirements/Certificate of Completion.pdf" target="_blank" class="doc-link">
+                        <span>📜 Certificate of Completion</span>
+                        <span>➔</span>
+                    </a>
+                </li>
+                <li class="doc-item">
+                    <a href="requirements/Trainee Eval.pdf" target="_blank" class="doc-link">
+                        <span>📋 Trainee Evaluation</span>
+                        <span>➔</span>
+                    </a>
+                </li>
+                <li class="doc-item">
+                    <a href="requirements/Performance Eval.pdf" target="_blank" class="doc-link">
+                        <span>⭐ Performance Evaluation</span>
+                        <span>➔</span>
+                    </a>
+                </li>
+            </ul>
+            <button class="close-panel-btn" onclick="closeDocsPanel()">✕ CLOSE PANEL</button>
+        </div>
+
+        <!-- SLIDING PANEL 2: COMPANY PROFILE (Kaliwa) -->
+        <div id="companyPanel" class="side-panel">
+            <h3 class="panel-title">Company Profile</h3>
+            
+            <div class="company-content">
+                <div class="company-header" style="display: flex; flex-direction: row; align-items: center; gap: 25px; background: transparent; border: none; padding: 0; margin-bottom: 30px;">
+                    <div style="width: 120px; height: 120px; background: #fff; padding: 10px; border-radius: 8px; box-shadow: 0 10px 25px rgba(0,0,0,0.3); flex-shrink: 0;">
+                        <img src="https://ntc.gov.ph/wp-content/uploads/2021/04/ntc-logo.png" alt="NTC Logo" style="width: 100%; height: 100%; object-fit: contain;">
+                    </div>
+                    <div class="company-title-block" style="flex: 1;">
+                        <h5>Department of Information and Communications Technology</h5>
+                        <h3 style="font-size: 1.6rem; margin-top: 5px; line-height: 1.3;">National Telecommunications Commission</h3>
+                    </div>
+                </div>
+
+                <div class="company-card-body">
+                    <h4>Mandate</h4>
+                    <p>The National Telecommunications Commission (NTC) principally regulates and supervises the provision of public telecommunications services, manages the radio frequency spectrum, and oversees the installation, operation, and maintenance of all radio stations and telecommunications networks across the Philippines.</p>
+                </div>
+
+                <div class="company-card-body">
+                    <h4>Vision</h4>
+                    <p>By 2028, the National Telecommunications Commission shall be a world-class regulatory agency fostering a progressive telecommunications sector as a vital engine for an inclusive, digitally-empowered, and globally competitive nation.</p>
+                </div>
+
+                <div class="company-card-body">
+                    <h4>Mission</h4>
+                    <p>To proactively regulate the telecommunications and information technology sectors, protect consumer interests, and promote stable infrastructure development to ensure reliable, affordable, and secure connectivity for all Filipinos.</p>
+                </div>
+            </div>
+
+            <button class="close-panel-btn" onclick="closeCompanyPanel()">✕ CLOSE PANEL</button>
+        </div>
+
+    </div>
+
+    <script>
+        function openDocsPanel() {
+            closeCompanyPanel(); 
+            document.getElementById("docsPanel").classList.add("open");
+        }
+        function closeDocsPanel() {
+            document.getElementById("docsPanel").classList.remove("open");
+        }
+        function openCompanyPanel() {
+            closeDocsPanel(); 
+            document.getElementById("companyPanel").classList.add("open");
+        }
+        function closeCompanyPanel() {
+            document.getElementById("companyPanel").classList.remove("open");
+        }
+    </script>
+
+</body>
+</html>
