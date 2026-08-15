@@ -971,7 +971,39 @@
                 closeDocModal();
             }
         });
-    </script>
+    function openDocModal(docUrl, docName) {
+            const modal = document.getElementById("docViewerModal");
+            const iframe = document.getElementById("docFrame");
+            const title = document.getElementById("modalDocTitle");
 
+            title.innerHTML = `<span>VIEWING:</span> ${docName}`;
+
+            // Kapag PDF file, gamit ang Google Docs Viewer para HINDI mag-download:
+            if (docUrl.toLowerCase().endsWith('.pdf')) {
+                const fullUrl = new URL(docUrl, window.location.href).href;
+                iframe.src = `https://docs.google.com/viewer?url=${encodeURIComponent(fullUrl)}&embedded=true`;
+            } else {
+                iframe.src = docUrl;
+            }
+
+            modal.classList.add("active");
+            document.body.style.overflow = "hidden";
+        }
+
+        function closeDocModal() {
+            const modal = document.getElementById("docViewerModal");
+            const iframe = document.getElementById("docFrame");
+
+            modal.classList.remove("active");
+            iframe.src = "";
+            document.body.style.overflow = "auto";
+        }
+
+        document.addEventListener("keydown", function(e) {
+            if (e.key === "Escape") {
+                closeDocModal();
+            }
+        });
+    </script>
 </body>
 </html>
